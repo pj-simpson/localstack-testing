@@ -1,0 +1,26 @@
+Resources:
+  GoLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: go-bin
+        S3Key: function.zip
+      Description: Very simple Go Lambda
+      FunctionName: cfn-go-lamb
+      Handler: main
+      PackageType: Zip
+      Runtime: go1.x
+      Role: arn:aws:iam::000000000000:role/lambda-role
+  GoLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: !Ref GoLambda
+      FunctionUrlAuthType: NONE
+      Action: lambda:InvokeFunctionUrl
+      Principal: '*'
+  GoLambdaUrl:
+    Type: AWS::Lambda::Url
+    Properties: 
+      AuthType: NONE
+      TargetFunctionArn: !Ref GoLambda
+
