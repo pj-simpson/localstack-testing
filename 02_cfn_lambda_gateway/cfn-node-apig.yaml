@@ -3,7 +3,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-        S3Bucket: js-bin
+        S3Bucket: js-repository
         S3Key: function.zip
       Description: Very simple JS Lambda
       FunctionName: cfn-js-lamb
