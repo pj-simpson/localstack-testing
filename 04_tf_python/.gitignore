@@ -196,7 +196,12 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+.terraform/*
 
 # aws_lambda_typing package
 aws_lambda_typing*/
 LICENSE
+
+.DS_Store
+
+py2d.zip
