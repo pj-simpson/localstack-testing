@@ -1,0 +1,1 @@
+Note to self: Dont think a hot reload is possible for a zip archive!

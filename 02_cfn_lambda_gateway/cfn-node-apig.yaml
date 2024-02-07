@@ -1,0 +1,45 @@
+Resources:
+  NodeLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: js-repository
+        S3Key: function.zip
+      Description: Very simple JS Lambda
+      FunctionName: cfn-js-lamb
+      Handler: lambda.apiHandler
+      PackageType: Zip
+      Runtime: nodejs16.x
+      Role: arn:aws:iam::000000000000:role/lambda-role
+  HelloWorldAPI:
+        Type: AWS::ApiGateway::RestApi
+        Properties:
+            Name: API Gateway and Lambda
+  HelloWorldResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt HelloWorldAPI.RootResourceId
+      PathPart:  something
+      RestApiId: !Ref HelloWorldAPI
+  HelloWorldMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        ConnectionType: INTERNET
+        IntegrationHttpMethod: POST
+        Uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/cfn-js-lamb/invocations
+      ResourceId: !Ref HelloWorldResource
+      RestApiId: !Ref HelloWorldAPI
+  HelloWorldDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref HelloWorldAPI
+  HelloWorldTestStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref HelloWorldDeployment
+      RestApiId: !Ref HelloWorldAPI
+      StageName: test

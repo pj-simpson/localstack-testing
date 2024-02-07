@@ -1,0 +1,1 @@
+awslocal rds create-db-cluster-endpoint --db-cluster-identifier rdspostgresclustertest --db-cluster-endpoint-identifier rdspostgresclustertestendpoint --endpoint-type ANY

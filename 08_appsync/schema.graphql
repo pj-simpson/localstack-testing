@@ -1,0 +1,17 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    getPostsDDB: [Post!]!
+}
+
+type Mutation {
+    addPostDDB(id: String!): Post!
+}
+
+type Post {
+    id: String!
+    time: AWSTimestamp
+}

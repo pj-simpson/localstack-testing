@@ -1,0 +1,36 @@
+service: service-03-serverless-go
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: go1.x
+
+
+package:
+  patterns:
+    - '!./**'
+    - ./bin/**
+
+functions:
+  gecho:
+    handler: bin/gecho
+    events:
+      - http:
+          path: /gecho
+          method: get
+  world:
+    handler: bin/world
+    events:
+      - http:
+          path: /world
+          method: get
+
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local
